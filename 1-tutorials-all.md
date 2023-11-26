@@ -1,4 +1,4 @@
-# tutorials
+# Tutorials
 
 | Title | Updated | Stars | Size | Files | License |
 | :-- | :-- | :-- | :-- | :-- | :-- |

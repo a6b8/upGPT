@@ -131,7 +131,8 @@ const config = {
     'lukso': [
         {
             'name': 'rICO',
-            'repo': 'https://github.com/lukso-network/rICO-js'
+            'repo': 'https://github.com/lukso-network/rICO-js',
+            'use': true
         },
         {
             'name': 'Tools Up Hammer',
@@ -151,7 +152,8 @@ const config = {
         },
         {
             'name': '',
-            'repo': 'https://github.com/lukso-network/lsp-utils'
+            'repo': 'https://github.com/lukso-network/lsp-utils',
+            'use': true
         },
         {
             'name': '',
