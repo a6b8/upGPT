@@ -14,7 +14,8 @@ const config = {
         },
         {
             'name': 'erc725.js',
-            'repo': 'https://github.com/ERC725Alliance/erc725.js'
+            'repo': 'https://github.com/ERC725Alliance/erc725.js',
+            'use': true
         },
         {
             'name': 'lsp-factory.js',
@@ -22,7 +23,8 @@ const config = {
         },
         {
             'name': 'eip191-signer.js',
-            'repo': 'https://github.com/lukso-network/tools-eip191-signer'
+            'repo': 'https://github.com/lukso-network/tools-eip191-signer',
+            'use': true
         },
         {
             'name': '',
@@ -46,7 +48,8 @@ const config = {
         },
         {
             'name': 'up Debugging',
-            'repo': 'https://github.com/b00ste/up-debugging-cli'
+            'repo': 'https://github.com/b00ste/up-debugging-cli',
+            'use': true
         },
         {
             'name': 'geneerate salted ups',
@@ -54,7 +57,8 @@ const config = {
         },
         {
             'name': 'salted ups contracts',
-            'repo': 'https://github.com/b00ste/salted-ups-contracts'
+            'repo': 'https://github.com/b00ste/salted-ups-contracts',
+            'use': true
         },
         {
             'name': 'salted ups',
@@ -78,7 +82,8 @@ const config = {
         },
         {
             'name': 'lsp 16',
-            'repo': 'https://github.com/skimaharvey/lsp16-factory'
+            'repo': 'https://github.com/skimaharvey/lsp16-factory',
+            'use': true
         },
         {
             'name': 'ERC725 Parser',
@@ -90,15 +95,13 @@ const config = {
         },
         {
             'name': 'Twitter Up',
-            'repo': 'https://github.com/CJ42/twitter-up-dapp'
-        },
-        {
-            'name': 'Lusko Playground',
-            'repo': 'https://github.com/CJ42/lukso-playground'
+            'repo': 'https://github.com/CJ42/twitter-up-dapp',
+            'use': true
         },
         {
             'name': 'Lukso Hardhat Template',
-            'repo': 'https://github.com/CJ42/LUKSO-Hardhat-template'
+            'repo': 'https://github.com/CJ42/LUKSO-Hardhat-template',
+            'use': true
         },
         {
             'name': 'Lukso Snippet',
@@ -164,11 +167,8 @@ const config = {
         },
         {
             'name': '',
-            'repo': 'https://github.com/lukso-network/LIPs'
-        },
-        {
-            'name': '',
-            'repo': 'https://github.com/lukso-network/lukso-playground'
+            'repo': 'https://github.com/lukso-network/LIPs',
+            'use': true
         },
         {
             'name': '',
