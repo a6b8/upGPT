@@ -1,0 +1,24 @@
+{
+  "name": "upGPT",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "gpt",
+    "openai"
+  ],
+  "author": "a6b8",
+  "license": "Apache 2.0.",
+  "dependencies": {
+    "badgetable": "^0.0.9",
+    "repos2doc": "^0.0.3",
+    "sitemap2doc": "^0.0.3",
+    "youtube-transcript": "^1.0.6"
+  }
+}
