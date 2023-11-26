@@ -5,9 +5,9 @@ import fs from 'fs'
 
 const bg = new BadgeTable()
 const n = [ 
-    [ 'repos', './2-repos.md' ], 
-    [ 'lukso', './0-lukso.md' ], 
-    [ 'tutorials', './1-tutorials.md' ] 
+    [ 'Repositories', './2-repos.md' ], 
+    [ 'Lukso', './0-lukso.md' ], 
+    [ 'Tutorials', './1-tutorials.md' ] 
 ]
     .forEach( b => {
         const [ key, filePath ] = b
