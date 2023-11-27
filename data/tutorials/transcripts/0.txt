@@ -1,0 +1,695 @@
+hello everyone it's yam from the teting
+in this video we're going to learn how
+to add reactivity to the universal
+profile using lsp1 universal receiver
+standard so let's go through the
+universal receiver and know more about
+the problem that this standard solve
+we're going to do that by taking an
+example of an erc20 token since it's the
+most used currently in the space during
+an erc20 token transfer the sender will
+call the transfer function on the erc20
+token and then this token contract will
+just decrease the balance of the sender
+and increase the balance of the
+recipient without further interaction
+the recipient will be totally excluded
+from the interaction regardless if it's
+an externally owned account or a smart
+contract so this recipient cannot know
+which token it owns and even other
+standard where a function on the
+recipient is defined the notification is
+limited and designed in a bad way so for
+instance ERC 721 1155 and 223 Define
+function functions to be available in
+the recipient contract to accomplish a
+successful safe transfer so let's say as
+a recipient my contract is deployed and
+two years down the road a new nft
+standard get adopted my contract will
+not have the ability to receive these
+kind of tokens because it won't be
+implementing the mapped ERC XXX received
+function other than that these function
+are not mandatory to be called these
+will be called only on safe transfer and
+also the standard does not defy an event
+to be emitted on the recipient so
+offchain clients cannot easily filter
+what tokens you own as a recipient they
+would need to query the whole blockchain
+and token contract to know what token
+you own so this shows that this way of
+notifying is broken and we need to find
+a better way and this is possible with
+the universal receiver function that we
+standardized in
+lsp1 so lsp1 Define a function called
+universal receiver and the whole point
+of this function is to emit an event to
+the network network with the data passed
+to it so let's say you inform a smart
+contract about a specific message an
+event will be emitted with who's
+informing which is the sender how much
+value he's sending what type of message
+he's sending and the additional data
+attached to it and the response of the
+universal receiver function not not just
+that this function can allow you to
+react on call so for instance you can
+specify in the function that whenever a
+specific entity send you a token half of
+these token will be sent to a vault you
+own or distributed equally to other
+recipient addresses the standard also
+take modularity into consideration so
+it's not recommended to hard code a
+specific logic within the universal
+receiver function but rather delegate
+the responsibility of reacting to an
+external contract called the universal
+receiver delegate and this is because
+you might need to change how you react
+on specific call so now you can decide
+to split all the token you receive 50/50
+between you and the secret vault or
+later you might you might want to disect
+allow anyone from sending you a token or
+filter the spam token and only allow
+whitelisted token so universal receiver
+implement the univers universal profile
+implement the universal receiver
+function and as you can see here you can
+have your tokens inform the sender and
+inform the recipient about the transfer
+in this way not just you'll get notified
+but also you can react on the token
+transfer as shown on the screen the
+universal receiver delegate can contain
+any logic from rejecting the transfer
+forwarding the asset to a vault or a
+staking pool
+Etc so in a previous video we explained
+why there is a need to have LSP 17
+contract extensions within the universal
+profile and how you can add them however
+it's important to differentiate between
+notifying the universal profile using
+universal receiver and calling an
+extension on the universal profile when
+a token will notify you the events will
+be emitted on your profile in this way
+if I need to know what tokens or
+followers or whatever people decide to
+notify about you can just listen to the
+universal receiver event emitted on the
+profile address however with LSP 17
+contract extension websites need to
+fetch what extension you previously had
+from the events and then fetch the
+events from these extension gathered so
+this will be much slower and unreliable
+plus the universal receiver is inclusive
+meaning that by default you'll not
+reject any call to inform you unless you
+decide to however with the extent tion
+if someone is informing You by calling
+the extension that you did not add yet
+the call will fail so it's all about
+having more flexibility and knowing
+where is the right place to perform
+certain actions LSP 17 contract
+extension are to extend the
+functionality of the universal profile
+and universal receiver is to inform you
+about incoming transaction and you being
+able to react on them and with that
+being said let's see a demo on how to
+use the universal receiver and how to
+add universal receiver delegates
+so I created a new hard hat project you
+can do that by installing hard
+hat so you'll do npm install hard hat
+and then you'll do npx hard hat in it
+where you initiate a new hard hat
+project so I uh created a typescript
+project uh feel free to do that with
+JavaScript if it's easier for you uh
+these are the packages that I'm using so
+you need to install the LSP smart
+contract package by doing that uh I use
+frer
+andv uh to have the environment
+variables and this package will be
+automatically installed with hard hat so
+for the samples of the uh environment
+variables you'll need to add the private
+key of your browser extension controller
+so there will be other tutorials that
+show how to uh extract the private key
+from the browser extension and here you
+would put the address so obviously you
+need to put that in the EnV not in the
+SLE this is just to show you how to do
+it so we're going to start by looking at
+the main setup that I created um we have
+here we're importing ethers from hard
+hat we are taking the universal profile
+AI from the LSP smart contract package
+and we're instantiating uh a new
+instance of the universal profile by
+passing The Universal profile address
+the ABI and the provider which connect
+us to the Luxo test so we can run this
+script to see
+our um addresses so we're going do the
+main
+setup and we can see here this is the
+address of the browser extension
+controller and this is the address of
+our Universal profile so in this
+specific tutorial we're going to uh call
+the universal receiver function and
+we're going to watch the events emited
+and we're going to say why this is
+useful so first let's start by adding a
+listener to the universal receiver event
+so we're going to create this and we're
+going to do Universal profile on and
+we're going to listen to the universal
+receiver so obviously there's different
+parameter with that there's the from
+who's calling the universal receiver the
+value he's sending the type ID which is
+a unique identifier about the action
+that the person is calling to notify
+about there's the received data
+additional data that
+you want to notify about and then we can
+just
+say say the
+universal receiver event was
+emitted can say the universal
+receiver was called
+by
+from
+passing
+this
+amount has
+value to
+modify about this type
+ID with
+these data so we can do is run this
+script we can run this script here
+here and go create
+a new
+terminal and within our main setup we're
+going to try to call the universal
+receiver function and see uh if the
+event will be emitted so obviously
+events take some time to to be detected
+but let's see if it's going to be super
+so so what we're going to do is that
+we're going to call the UN receiver
+function on the profile so the universal
+receiver function take two parameter the
+type ID and data so the type ID
+represent a specific action that you
+want to notify about so it should be
+like a unique identifier for the action
+that you want to notify about so we can
+say
+um
+that where we want to notify about the
+royalty so we create the hash of the
+word royalty and this will be our unique
+identifier and then as data we can pass
+whatever we want like the address or
+like royalty about like which token
+contract or about which product you're
+selling so but for now we're just going
+to use this dummy
+data and then we're going to wrap that
+in the
+transaction let
+run this
+transaction and obviously even if you
+didn't touch your universal receiver
+function before the transaction will
+pass because we said the universal
+receiver function is inclusive meaning
+whenever you deploy your Universal
+profile you don't need to do any setup
+if someone call this universal receiver
+function the transaction will pass
+because it's just emitting an event and
+it's searching for universal receiver
+delegates to react on the uh on the
+notification but if you didn't set any
+universal receiver delegate we should
+expect it to pass so if we go to the
+other terminal and wait for a bit we can
+see that the event was
+emitted so so maybe not this one here we
+can see that the universal receiver was
+called by Ox E4 which is the signer
+because we have seen that whenever I log
+the signer it's this one passing value
+we didn't send any to notify about which
+is the hash of the word royalty and with
+a b b c d d as data so what we can do is
+pass some data here and see if it
+changed can see we're sending
+tenway and then we run the script
+again and we wait a
+bit till it's mind on the blockchain
+and we go and we can see that now it's
+updated with 10 value and even this not
+just uh can be done with externally
+owned account by calling the universal
+receiver so you can have a token so
+let's say we're
+creating my token which is and first
+let's
+import let's import
+nsp7 digital
+asset
+from so there would be other tutorial
+that show you how to deploy and uh
+create an LSP 7 digital asset for now
+we're just going to use it as a sample
+to see that a token would notify you
+about um about the token
+transfer so the lp7 digital asset we
+need to pass some
+arguments like
+um we need to
+pass the name of the token
+token the
+symbol we need to pass the owner which
+is let's say the digal sender and then
+uh whether it's divisible or not for now
+it's not very
+important and I'm going to create a
+function that's called mint and takes a
+recipient and it's called by anyone just
+for the sake of the
+demo so the amount will be 10 the
+recipient
+this let's set the true and as data I
+just want to pass ZX or let's keep it
+empty and now I'll just compile the
+contract and I would need to deploy so
+I'll just go here take
+this and deploy the contract so I need
+to
+import
+and I take the
+factory and the signer will deploy this
+one and what we're going to do is that
+directly we're going
+to we're going to Mint some
+tokens this is
+designer minute and we're going to put
+the universal profile
+address
+so this
+then so we don't need this line
+and let's run this script which is
+deploying contractor
+so what did I do as a
+mistake
+probably
+yep so we're waiting till the contract
+is
+deployed and we're minting some tokens
+to the universal profile which is
+supposed to notify also the universal
+profile so hopefully we can see that
+reflect on the
+events that we're listening
+to so let's wait so it's
+deployed so now after fixing the code I
+just needed to add a guas limit for some
+reason um so I added a guess limit and
+it went through it didn't revert so we
+can see here that it didn't revert and
+hopefully whenever I minted this um
+token to the universal profile it should
+notify the unal profile and we're going
+to see if it did notify or not so we're
+going to go here and we see that
+actually notified so now the universal
+receiver was called by this address we
+see that it's a different now not the
+signer is calling the universal receiver
+because actually the signer is calling
+the mint function and the token contract
+is notifying the universal profile about
+the transfer so this is the address of
+the token contract and we say we see
+that it not with zero value because it's
+not sending a native token it's just the
+the token that we
+created about this specific type ID so
+if you go to the LSP 7 spec you see that
+this type ID is to represent that you're
+receiving an LS sp7 token so now even
+you can say that you want to filter the
+universal receiver event with this type
+ID and this way you'll just get the
+notification when you receive an LSP 7
+token and and these obviously are the
+data associated with the transfer that
+you can uh choose from the token
+contract so the whole idea of notifying
+and listen listening to the event of the
+anniversary receiver is to say that now
+we don't need to index the whole
+blockchain anymore and check where uh is
+the transaction where my address is
+associated with now we can just listen
+to the universary receiver uh event and
+know what uh are we being notified about
+or what we receed is it like a token
+follower a royalty
+anything so now let's see how we can use
+the univers receiver delegate so we'll
+stick to the example of the token so we
+have this LSP 7 digital asset token and
+when whenever we're minting or
+transferring a token to a recipient this
+recipient If he if it's a universal
+profile then the universal receiver of
+function of this Universal profile will
+be called with specific parameters that
+we're going to going to see now so if we
+go to the LSP 7
+specification we can see if we go to the
+transfer function uh which applies the
+same to the mint function we can see
+that if the token recipient is a
+contract that support the lsp1 interface
+which is the case in uh the universal
+profile uh it should call the tokens
+recipient universal receiver function
+with a parameter below so this is the
+type ID that the universal profile will
+be notified with so we're going to take
+it and for for now let's just put it
+here so we can create a logic in our
+universal receiver delegate that depend
+on this type ID so for instance in this
+tutorial let's take a simple example
+which is um allowing just whitelisted
+token to be received so what we're going
+to do is that we're going to create the
+universal receiver function universal
+receiver delegate in our in the case of
+a universal receiver delegate it should
+take this form the sender will be the
+person not notifying the original
+universal receiver function value how
+much he sent the type ID which is passed
+and the data is pass so we can just do
+that and then returns
+bites so this need to be added with the
+times we have
+it so now we can say if the type
+ID is equal
+equal this one which signal that we're
+receiving an LSP 7
+token we need to requ we need to First
+add a mapping that will hold the logic
+of white
+listing address then Boolean
+public is white
+listed and we can have a
+function
+change white listing then the address of
+the token all the
+status and for Simplicity we're not
+going to add any modifier now but this
+should be only callable by the universal
+profile so he can control uh which token
+to allow or not but for now let's just
+keep it simple
+and just do
+that so uh we're gonna say that
+require that the sender which is the
+person notifying the universal receiver
+function so we're going to
+say we're going to
+require that the sender is white
+listed if he's not white listed it's
+going to revert so let's compile
+obviously we're going
+to ignore the rest we don't need the
+value or the data so it's not necessary
+that we use them it's just we we use
+what we need so we're going to do that
+and then we're going to
+compile and an important thing that I
+just forgot is the support of the lsp1
+delegate interface if we don't support
+this interface ID then this function
+will not run so obviously we need to do
+support
+interface byes
+four so this is a critical aspect to the
+universal receiver delegate and we
+say
+since we're
+importing can just take the interface ID
+from here and now we can compile and
+this should be working so now we're just
+compiling and compiled successfully now
+we need to deploy this universal
+receiver delegate and add it to the uh
+Universal profile
+so now let's take the invers receiver
+delegate Factory actually let's keep
+both so we can deploy a
+new token so we deployed a new
+token let's remove the logic of so this
+is y to
+Target and then we're going to deploy
+the universal receiver dedicate
+and we're going
+to
+emit so let's do
+that let's also set a gas limit so we
+don't fall so this gas limit is a bit
+exaggerated
+but it will work so let need ex that
+from script deploying contracts it might
+take a bit of time
+because so the first one is the
+address of we're going to put it here
+somewhere this is the address of the
+token and this is the address of the
+receiver
+dedicate
+cool so now the step would be to first
+check if we meant some tokens to the
+universal profile it will not fail
+because we didn't set the universal
+receiver delegate yet so what we can do
+is
+just so we need to
+instantiate the Token contract
+so let's do
+that let's
+do we take the address of the token from
+here we just put it here and the API so
+I created a function called mint with
+address
+so it's very simple don't need to make
+it
+complicated and now we would just call
+the mint function to the universal
+profile and hopefully it should go
+through so we're going to wait a
+bit
+and it should be
+working because it didn't
+revert so it didn't trovert obviously
+that mean it's working and it Meed some
+token but now what we're going to do is
+that we're going to add this universal
+receiver delegate which will revert
+whenever we send the token because it's
+not wh listed yet so what we're going to
+do
+is first we need to construct the data
+key of the uh universal receiver
+delegate So currently uh the universal
+profiles deployed by luo will have a
+universal receiver delegate that will be
+responsible of uh writing the address of
+the assets you receive and the vaults
+that you receive and this is a common
+behavior that everyone agreed to but
+anyone can change this universal
+receiver delegate but now we're not
+going to mess this
+uh setup and we're just going to add
+this as an extra universal receiver
+delegate just related to the type ID of
+receiving LSP 7 token so we're going to
+do that we're going to start by
+constructing the data key so we're going
+to say we need to
+import the ERC 725 Y data
+key the luo
+package we're going to construct
+so the type ID we put it right there I
+guess so this is the type ID we're going
+to need
+it type ID of
+lp7
+recipient
+constructed data key
+equal and then uh we're going to use the
+lsp1 universal receiver prefix which is
+which is 12 bytes and then we're going
+to concatenate that with the type ID so
+we'll need to
+take we need to remove the first two
+bytes and then take
+um uh 20 bytes so it will be 2 to 42 and
+then this will be a bytes 32 data key
+and then the address will obviously be
+the address of the universal receiver
+delegate so what we're going to do is
+we're going to create a
+transaction
+that call set data on the universal
+profile so if you're doing that with the
+universal profile deployed by Lo so you
+need to make sure that the address of
+the universal profile browser extension
+uh the the browser extension controller
+has the permission of uh add universal
+receiver delegate or edit un receiver
+delegate if you're going to remove one
+and replace it with this one so there
+will be other tutorials that show how to
+give uh the universal receiver delegate
+permission or like how to edit it from
+the extension or programmatically so I'm
+not going to do it in this one so I just
+do constructed data key and then the
+address of the universal receiver
+dedicates and then we're going to wait
+so we're adding aners receiver
+delegate so let's see whether it goes
+through or
+not so it went through so we assume that
+we added our universal receiver delegate
+and we're going to make sure uh if it's
+working or not so now what we're going
+to do is that we're going to try to Min
+some tokens to the universal profile and
+see if it's reverting or
+not we do so we just put them in the
+deploying contract it's not
+accurate but let just put the code
+to
+so after waiting for a bit the
+transaction went through and it actually
+reverted so we can see transaction
+execution reverted and here's me trying
+again to run the script and it actually
+reverted and this is because our
+universal receiver delegate is now
+reverting on nonwhite listed token so
+what we're going to do is that we're
+going to go to um
+yeah what we're going to do is now we're
+going to
+whitelist the the token that we have in
+order to do that we need to interact
+with the universal receiver delegate
+contract so also we're going to do that
+from the same
+contract
+so we just uh first load the API so we
+need to see what we did rename the
+function take this and then instant API
+okay and
+then we just
+instantiate my univers delegate contract
+we have the address of the universary
+receiv delegate
+here then this is the AI and the
+provider and we just
+do proceed
+with connecting with the
+ler and then we're going to call the
+function so we're going to say change
+white listing so first we need the
+address of the token so we can Whit list
+it we already have it saved
+here and then we're going to say true so
+it means that it's white listed and then
+we're GNA wait till the transaction is
+mined so just in case I'm GNA add the
+gas
+limit or maybe not let's see if it go
+through and we wait a bit till the
+transaction is
+mined and now the trans ction is mined
+and we know that we whitelisted the
+token so now we try again and this time
+the transaction need to go through and
+for that to make sure that it went
+through I will be listening here to the
+universal receiver event so I'm going to
+run this
+script I'm going to run it here and now
+I'm going to proceed with minting a
+token to see if it's going to notify and
+if it's going to pass through or
+not let's
+see so we wait a bit and we see that it
+didn't revert so this is the first sign
+that our universal receiver delegate
+worked because earlier it reverted when
+we did a mint and now when we go to the
+or receiver event we see that this is
+the address actual address of the uh of
+the token so we can compare it you can
+see that this is the address of the
+token which mean it minted some token
+and notify about this one which is the
+type ID that we already set a universal
+receiver Delegate for it to react on it
+and we have some other information that
+is passed by the token
+contract so that shows that we can add
+any logic to the universal receiver
+delegate and make it run on whatever
+action we decide to so that needs
+standardization in LSP 7 we did it so we
+can see here that we
+standardize uh the notification for
+receiving token and for sending them and
+in this way you can react on them so uh
+this uh example was a bit simple if you
+need to go through more advanced uh
+example you can go to our uh docs you
+can see here in the guides section
+create a universal receiver delegate and
+this one is a bit Advanced so you can
+see how you can split the LSP 7 token
+like transfer a percentage to another
+recipient which is a bit more advanced
+than just wh
+listing so that's the guide uh for today
+and if you need to check the code this
+will be all organized under the uh this
+GitHub repository thank you

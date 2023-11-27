@@ -1,0 +1,321 @@
+welcome to all of you to the looko
+buildup hackathon number two I'm very
+happy today to be presenting a workshop
+on the service relayer for a little
+introduction on who I am so my name is
+magali Morin I am a software engineer at
+luo and the projects I've been working
+on since uh I've joined luo are the
+service relayer on which I will be
+talking today and also the indexer that
+you can find at search. Universal
+profile. Cloud which indexes the
+universal profiles on the blockchain and
+also the tokens and
+nft so the objective of this Workshop is
+that you get an idea of how to use a
+service relayer how to send execute
+relay call transaction how to deploy
+Universal profiles and finally I will do
+a demo with uh the GitHub repository
+that I have prepared for this
+Workshop all along the the workshop you
+can always refer at docs. loco. Tech
+where you will find very detailed
+information on everything that I will be
+talking about so don't hesitate to visit
+d.o. tech for any question that you
+have so today a big barrier of Entry to
+the blockchain is the fact that users
+needs to buy token of a network on an
+exchange platform do a kyc etc etc along
+and a very a discouraging process before
+they are able to send transaction to the
+blockchain the idea of the service
+relayer is to replace this two time step
+for the user with just a onetime step
+for the user the user just needs to
+subscribe to a monthly subscription to
+the service relayer and then the service
+relayer sends and pay for the
+transaction fee of the users every time
+a user wants to make an action on the
+blockchain
+so basically the service relayer removes
+a barrier of Entry of the user to use
+the
+blockchain let's get into more details
+on how this flow Works a user signs a
+transaction with a key this key doesn't
+need any fund on it it just needs to
+have permission to execute a transaction
+on the universal
+profile this transaction is sent to the
+service relayer the service relayer then
+sends this transaction and sends it to
+the
+blockchain the user needs to send the
+transaction to the service relayer this
+transaction is an object with different
+parameters the first parameter is the
+address this address is the universal
+profile address of the user on which the
+transaction will be
+executed then we have a transaction
+object the transaction object consist of
+the ABI the ABI of the transaction to be
+executed a signature this is the signed
+transaction with the key of the user
+which doesn't have any
+fund the nons the nons is the nons of
+the signing key of the
+transaction and finally the validity
+time stamp the validity time stamp is
+the duration for which the transaction
+will be considered valid in this case
+the validity time stamps is set to zero
+this means that the transaction is valid
+for an indefinite period of
+time then the service relayer will
+encode the execute relay call
+transaction with the parameters given by
+the
+user and finally it will signs and send
+the transaction to the
+blockchain this transaction will be
+executed on the blockchain and the
+service relayer will return to the user
+the transaction
+hash now let's get into more detail on
+how to deploy a universal profile
+a universal profile deployment required
+to deploy several smart contracts and
+these smart contracts need to interact
+with each
+other in fact a universal profile is a
+combination of different contracts on
+one side an ERC 725 account contract and
+also an LS sp6 key manager
+contract this LS sp6 key manager
+contract is linked to the ERC 725
+account
+contract
+then we can also set additional settings
+like a universal receiver delegate or
+lsb3 metadata on the ERC 725 account
+contract in order to orchestrate the
+deployment of these very different
+contracts and to set additional data on
+top of this deployment we use the LSP 23
+standard now let's get into the demo
+code so first I would like to present
+some tools that will be useful to you
+when you will be be tacking with the
+repository first the luo faet this faet
+allows you to get some fund on your keys
+from the Luxo test net the second tool
+that will be very useful to you is ERC
+725 inspect it allows you very easily to
+know what is inside your Universal
+profile now let's get into the repo and
+into the demo
+code let's clone the Repository
+and do the installation
+setup once you have followed the
+installation process you should have an
+environment file with a private key
+which have funds on it so this key
+relayer private key is the key that was
+in Pink So this key is the key that will
+be used to send execute relay code to
+the blockchain you can use the faet in
+order to fund this
+key
+let's run the project by running yarn
+Dev this
+will generate the server
+and here we see that the server was
+successfully started at Locos
+3000 so now we can um use the script in
+order to execute a relay call or deploy
+a universal profile first let's start by
+executing a relay
+call
+in the script execute relay a call we
+see that we need
+to give two parameters in input the
+first parameter is the universal profile
+address on which we want to execute this
+relay and then it's the user private key
+this private key is the key that was in
+gold in the slide before this key
+doesn't need any fund it only needs to
+have permission on the universal profile
+in order to execute the ABI
+payload in this script as we don't fill
+in the input parameters any API a
+default set data AI will be executed in
+our on our Universal
+profile you can find this ABI uh in the
+jate body execute. TS
+file it's this one so this is the AI
+that will be executed on the universal
+Pro profile it's a set data transaction
+and it will set this default lsb3
+profile
+data as we want to execute a set data
+transaction on the universal profile we
+need to make sure that the user private
+key has set data permission on the
+universal
+profile so now let's execute the script
+and see if the lsb3 profile that are
+correctly set set on our Universal
+profile to execute the
+script we will
+run yarn run
+execute here we see that the execute
+relay call request is being sent to the
+blockchain by the service
+relayer this execute relay call request
+is signed by this wallet
+address
+and here we have that the transaction
+was successfully sent and we see that
+our transaction was
+successful then we can see on ERC 725
+inspect if the LSP profile metadata were
+correctly set on our Universal
+profile so let's go on ERC 725
+inspect and here paste the contract
+address here is the universal profile
+address address on which we executed the
+relay
+call and here we can see everything that
+is on this Universal
+profile we see in lsb3 profile that here
+we have the lsb3 profile metadata that
+we wanted to set on it so the execute
+relay C transaction was successfully
+executed
+now let's deploy a universal profile
+with the script so the input parameters
+are a list of controllers addresses with
+permissions and lsb3 profile metadata to
+set on the deployed Universal
+profile so let's get into more detail on
+what does these list of controller means
+so once the universal profile will be
+deployed we want to set controller
+addresses on it with very specific
+permission in order to to encode and
+encode this permission we can also use
+ERC 725 inspect I will do this here to
+show you how to do it on your c725
+inspect there is this key manager
+permission page where you can paste the
+permissions and then it will decode for
+you the
+permission that it corresponds to here
+we can see that this corresponds to a
+set data
+permission so once the universal profile
+will be deployed it will have a
+controller with this address that will
+have the s data permission on
+it it will also have this address which
+will have other permissions on it and
+also this address with these permissions
+and finally it will be deployed with
+this lsb3 profile
+metadata so let's run the script deploy
+up in order to deploy a universal
+profile and check if it was deployed
+with a COR correct
+inputs for this we run the script yarn
+run deploy
+up and let's see so now the relayer
+received a request to deploy a universal
+profile and here we see that the
+universal profile was successfully
+deployed and here is the transaction
+hash on the Block Explorer it was
+successful and we can inspect the
+universal
+profile on RC 725 inspect so if we go to
+the LSP 6 address permission here we see
+that this Universal profile was deployed
+with three addresses as controllers this
+is what we decided and let's check that
+each of these addresses have the correct
+permissions so for this I will use the
+data fetcher here I will paste the
+universal profile
+address and here I want to inspect the
+address permission for a specific
+address here I will paste the address of
+the
+controller omitting the two first
+bytes and I want to get the data and
+here we see that the permissions that
+this address have on the universal
+profile is only set data and this is
+what we were
+expecting you can find more information
+on how each parameters is generated in
+the read me please go through there in
+detail as it will give you better
+Insight on how each endpoint works and
+how a transaction execute relay call or
+a deploy Universal profile is executed
+through the relayer finally I thought
+about some ideas for the hackathon that
+could be nice to uh discuss about the
+nons management system so in this
+implementation of the rayer there is
+just one key that that signs and send
+the transaction to the blockchain
+however if there was just one key the
+relayer will be a very slow system so
+ideally we want several keys that are
+signing and sending transaction uh to
+the blockchain in parallel but for this
+we need to have a good non management of
+each
+Keys then another idea was the batch of
+transaction in order to reduce the cost
+of gas fee the relayer could send users
+transaction in batch this has the
+advantages of reducing the gas fee but
+also on the other side disadvantages so
+for example uh we could not send um the
+transaction hash back to the user for
+each transaction that they want to make
+and also if one of the transaction would
+happen to fail then the whole batch of
+transaction would
+fail and finally another idea would be
+link to the quota
+management how does user would uh pay or
+retribute to the service relater for
+paying their transaction fees uh would
+they pay on a monthly basis or would um
+it be another system that pay for the
+user I think uh in this subject uh we
+can be very creative on how to manage
+quota so this is something definitely
+worth uh thinking about so thank you
+very much for having followed this work
+work shop I it was really a pleasure for
+me to present my work on the relayer
+don't hesitate if you have any question
+to come up to me on Discord I will do my
+best to answer all your
+questions I wish you the best of luck
+for the hackathon and I'm very very
+excited to see all the project that you
+will come up with and hopefully in the
+future we can collaborate together and
+create and build very cool stuff on the
+looks of
+blockchain

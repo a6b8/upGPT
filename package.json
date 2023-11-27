@@ -17,8 +17,8 @@
   "license": "Apache 2.0.",
   "dependencies": {
     "badgetable": "^0.0.9",
-    "repos2doc": "^0.0.3",
-    "sitemap2doc": "^0.0.3",
+    "repos2doc": "^0.0.7",
+    "sitemap2doc": "^0.0.4",
     "youtube-transcript": "^1.0.6"
   }
 }

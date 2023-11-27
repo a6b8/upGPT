@@ -1,0 +1,314 @@
+hi I'm Andreas RoR principal engineer at
+Luxo and I would like to talk about
+authentication using Universal profile
+and sign in with
+ethereum I'd like to compare it with oo
+and show what kind of Primitives you
+would have to implement in order to
+allow it to identify
+authorize and log in a user into our
+system first I'd like to discuss you
+know what what is login you know why do
+we need
+it so essentially it's to identify the
+user to give them permissions for what
+they're allowed to do and to keep track
+of them in terms of you know when they
+make more requests to recognize them
+again so they don't have to sign in
+every single time they make a
+request comparing it
+to using normal transactions on the
+blockchain you're essentially signing
+one of those every single time you make
+an interaction so for a
+normal D you may not need authentication
+but if you have some kind of backend
+environment that needs to recognize the
+user then authentication is a a good
+thing and sign in with ethereum is
+better a better way of dealing with it
+than having an O provider so to define
+the terms what login composes so
+basically identification of the user is
+to convert the user into a
+unique user identity uh that may be just
+a random number of bytes or it may be in
+like in this case in Universal profiles
+it may be the address of the
+account but it can be something
+Anonymous or something
+personal um usually it doesn't have P ID
+data in it but it's something that can
+make the user known to the system some
+systems even use emails
+there
+um then for
+authorization that's basically a set of
+permissions that are associated with a
+user la l in so on an email system a
+user might be able to read certain
+folders and not read other ones and
+those are permissions and they're called
+authorization and session tracking
+just it
+explains a way to the server so that the
+server can uh give the user a token and
+when they come back the user sends that
+token along so that the user can
+reauthenticate themselves and have
+access to the same permissions that they
+have as they had before without this
+they would have to log in every single
+time they make a
+request so let's talk about the identify
+part and compare it to how it used to
+work in oo or how it still working in
+oath and kind of
+compare when you compare oath to sign in
+with ethereum inside of oo you have to
+have a database that keeps track of
+users and their
+credentials and when a user logs in the
+credentials are being sent to the
+server username password it could be a
+pass key but it's it's some kind of
+information that represents the user
+that the o server can look up in the
+database
+validate and then it can reply with an
+authentication token or a code that can
+then be exchanged for a token but
+essentially it identifies the user
+verifies them and then sends the reply
+on the sign in with ethereum
+side the user already
+certifies the message with the private
+key so there's no need to expose any
+credentials on the server side the
+server can validate the message
+without having a database table that
+keeps track of the
+user now let's compare
+authorization between o and uh sign in
+with ethereum so those pieces could be
+identical where where you would look up
+the user in the database and look up the
+permissions and then reply or you could
+have some kind of onchain storage like a
+a contract or a a key value store that
+keeps track of which user has which
+permissions
+um since sign in with ethereum can
+already prove that the user exists and
+that it's a legitimate user all you need
+to do is look up the permissions and and
+return um a token for the user that
+contains
+that um alternatively you can even have
+the user write those permissions in the
+initial package and just validate that
+they indeed should get those
+permissions in terms of session tracking
+things are pretty much very
+similar um if you're using sign in with
+ethereum uh it makes certain things a
+little easier but let's see what the
+difference is so in terms of session
+tokens like JWT
+tokens they're pretty much similar uh
+when the tokens expire although when you
+want to talk about refresh tokens that
+might last for like a month or something
+like that usually they need to be
+registered
+somewhere um you could register them
+either in a
+database or you could register them on
+on chain in a key Value Store
+um so that you can roke them if you ever
+need
+to on the sign in ethereum signing it
+itself is really easy so you may prefer
+to just have the user sign in
+again
+now I'm going to be talking about a
+little demo that I put together that
+kind of shows how the different pieces
+go
+together so first I want to quickly show
+the some of the code point out certain
+things so essentially the code is
+centered around creation and validation
+of this JWT tokens so in this
+case I'm creating a JWT on the clients
+side so um in order to do that you first
+have to create the sign in with ethereum
+message there's certain parameters that
+are
+required uh in this case you pass in the
+statement which the user in this case
+provides but normally that's hardcoded
+uh for
+you um you specify when the token was
+signed or issued and when it expires in
+this case it's only 10 seconds since the
+client token you usually don't do much
+with it you first send it to the server
+and exchange it for server side
+token in this case I'm I'm putting the
+digital identity of the client in
+here and the digital identity of the
+website you prepare a message sign the
+message and then here I'm doing a little
+um prepending a header taking the
+message the signature and then all base
+64 URL encoding it this will just make
+it act and look like a regular JWT token
+that people use on the net to identify
+users and to send as Sparrow tokens on
+requests um exchange
+token is a pretty simple function you
+basically send the barer token to the
+back end and the back end then responds
+with the original token and a new token
+a new signature and so on and a new
+JWT if you want to just verify the token
+that's basically sending it to any API
+request so you would just send it as a
+barer token and get the
+response so there's nothing special
+going on in very ification if you wanted
+to verify the token on the client that's
+a little more difficult because on the
+client you have to check whether the
+token was a server side token or a
+client side token if it is a client side
+token the address it's going to match
+with your un Universal profile
+address so in that case you have to call
+the contract and call is valid signature
+give it the hash and the signature and
+then it will tell you if it
+succeeded by returning this magic value
+here 1626 ba
+7e if it if it doesn't match
+then the signature didn't
+match for the other case whether whether
+it's a seright token you got to make
+sure it's your token so in this case I'm
+checking for my dead in the
+resources if that H if that succeeds
+then I ask the server for its public
+address in this case the public key
+which is just a hex hex number of the
+wallet then I recover that address from
+the message by sending it the message in
+the signature and then you can compare
+whether the server public key is equal
+to the
+address and if it is then good otherwise
+it's not
+good uh but what's kind of cool is that
+this allows the client to actually
+validate messages from the server so if
+the server
+included it's
+JWT inside of the response header you
+could validate that that response
+actually came from that
+server
+the server implementation is basically
+two routines it's decode token so again
+you split it up you Val you create the
+sign in with ethereum message uh you can
+verify the
+message if the wallet address was you if
+it's the server
+address um otherwise you can uh verify
+it using the LSP Zer ERC 725
+account
+so again those two cases if it's the
+wallet address of the server then you
+can just call the plane verify uh
+message if it's the client signed token
+then you ask is valid signature you get
+the magic
+number if it worked and if it's not the
+magic number that you for an exception
+for exchanging of token it's basically
+the same you decode the token and then
+you just create a new one but this time
+you created on the
+server so in this case I just take the
+original sign in with ethereum message
+that the user did and modify the
+resources to include the web as a
+digital identity the user as a digital
+identity make sure that you don't
+include include the server wallet as the
+digital identity so I just
+always remove it just in case it got in
+there in this case you can make the
+token last
+longer um but otherwise you know it's
+it's the same kind of code that's on the
+client so you sign it with your wallet
+you preent the header and again
+serialize it base 64 URL encoded
+and you can return it to the client so I
+set up a little web
+applic web tab that that kind of shows
+this
+so let's put in like a message by
+logging
+in
+you agree to the
+terms and
+conditions
+you click the login
+button you
+basically approve that
+signature that will give you a client
+side token here's the here's how the
+token is going to look like it includes
+this
+message and has this um statement and
+has the
+signature you can verify it on the
+client the client says yeah okay I
+I knew what this was I recognized the
+user you can verify it on the server by
+sending it to the server so the server
+says okay yep I know I know who this
+is um you can now exchange it for a
+server
+token so the server came back it
+returned the original message the new
+message um you notice that the server
+put itself into the resources
+uh again it knew the account so it
+Returns the account Returns the JWT
+token which you can then verify on the
+client so the client knew what this was
+it was able to verify
+it since the server accepts both the
+client side token and the server side
+token you can just send resend it and
+refresh and get a new server side token
+so in this case you can see that the two
+messages are basically the same except
+that the dates and times are
+different then uh you can verify that on
+the server so you can verify the new
+newly generated one on the server and
+that works
+also so that's basically what I wanted
+to show I put the the demo in GitHub so
+you can check it out
+see if you'd like to uh play with
+it here's a little summary of what the
+pieces are inside of this little demo um
+I put the source code in the GitHub repo
+so you can you can check it
+out

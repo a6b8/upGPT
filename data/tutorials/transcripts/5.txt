@@ -1,0 +1,792 @@
+hello everyone and welcome to this uh in
+this Workshop tutorial where today we
+are going to learn how to create an nft
+collection using the luus standard lp7
+or LS
+sp8 so in in today's video we're going
+to see how we can create different type
+of nfts and we will see different
+example uh for instance um for instance
+like the example that you have listed
+here to create different type of
+collections so things like um nfts where
+you need to create large
+quantities like digital tickets for
+events or large quantities of nft with
+the same design that are um that act as
+collectible or using um or doing things
+like creating a collection like a basic
+nft collections or dynamic nfts that can
+evolve or a more advanced use case like
+collections of sub
+collections so to get started uh we are
+going to use uh template that I've
+created that use the latest version at
+the current time of hard heart and eers
+and uh to you so you can run the
+following instruction to um to clone the
+repository and install all the
+dependencies and you need to make sure
+that you have uh this version of
+nodejs and if you don't you can just
+install it using you can just update
+your node version using
+NVM okay so let's get started so first
+of all we need to there is a first
+concept what we need to learn and
+understand which is uh the the type of
+token that we are going to create so the
+type of digital
+asset and when we create a digital asset
+smart contract on loo we need to specify
+the token type under the following data
+key in thec 75 y storage so the there
+are three type that we can Define we can
+Define either a token or we can Define
+um an nft or we can define a collection
+a token will mean that each item uh have
+the same value as another and nft mean
+will mean that each item are unique with
+our own design and the collection will
+mean that uh it's a group of
+nfts okay so let's get
+started so we're going to first start by
+creating a digital ticket for an
+event and to do that we can use the
+standard LSP 7 and Set uh the decimals
+to zero using the non-divisible flag
+when we deploy the token and so the
+token type will be zero which is a token
+and this is useful when we want to to
+create large quantities of nfts where
+each nft is the
+same um and we can use that especially
+in context where we need to Mint large
+quantities of nfts all at once and
+thanks to lp7 set non divisible we can
+do that because we will be able to
+create uh to Mint to call the Min
+function once with the recipient amount
+recipient and the amount of token to to
+me to create and uh then we
+um and then we will just call the and
+and yeah this will just create the whole
+batch all at once so for creating this
+is useful uh because we can just do that
+in a single transaction instead of
+calling M and the token ID a thousand
+time so a good example of use case for
+that are Cinema tiet uh things like
+event tickets for events or uh where we
+want to
+um Supply uh the total amount that we
+want to create and then we can
+afterwards uh transfer each of them
+individually or each attendant like each
+attendant to the event can basically
+claim the
+nft so this is an example of how we can
+represent an an evate as an nft using
+lp7 so as you can see we will just
+inherit the sb7 minable um uh contract
+and uh we just Define the name of the
+event the symbol of the token and who on
+the contract we mark this contract as
+indivisible meaning that uh it's a when
+you get a digital ticket for the event
+it's a full ticket you cannot split the
+token in the ticket in half uh which
+mean which is the parameter non
+divisible
+here and then we can set the token type
+uh as we said the4 token type to a token
+meaning that what we are creating
+represent an actual uh token so one
+ticket has the same same value as
+another tickets there are all both
+interchangeable and we can mint a batch
+of thousand ticket of 100 tickets here
+all at once um as follow and we are
+using here the traditional uh
+distribution uh the pattern that is
+often used where uh basically tokens are
+just minted
+to one address that will then distribute
+this uh these ticket
+okay now we're going to see the second
+example where uh we can use still the
+same standard sp7 to create 100
+collectible with the same
+design and so it will be the same we
+just use LS sp7 set to non divisible and
+the token type is one and this is useful
+when we actually want to
+differentiate when we want to create
+large quantities of nfts efficiently but
+we want to differentiate it the asset we
+are creating is either uh a token or an
+NFD uh so in this case here all the LD
+has have the same design is still useful
+to large quantities and a comparison
+with a real world here is Pokemon is
+like basically trading cards if you're
+familiar with trading cards uh a lot of
+people collect them things like Pokemon
+or magic recovering or baseball card um
+and there are a large there are multiple
+uh quantity of uh such card for instance
+a Charizard or one of baseball C like
+that that have been created in multiple
+quantities but people uh collect have a
+collectible aspect so this is how we can
+use the standard to map to an example
+from The Real
+World and this is how that would look
+like in uh solidity we will still use LS
+sp7 so we can create a large quantity
+but only if we set the non divisible
+flag to True uh because it's the same
+you a trading card you cannot rip it in
+half and give me half you just own the
+full card or you you don't own any C or
+you don't own the card and same you can
+see here in the Constructor we're going
+to set the the lp4 token type to be an
+NFD okay now we're going to see a third
+example where we are going to create
+collection um where each collectible is
+unique and this is a bit similar to what
+already exist um and to do that we are
+going to use LS sp8 and we will set the
+token type uh to a collection and this
+is the most simple way to create nfts on
+so really uh that mimics the current nft
+collection that
+exist uh so if you want to recreate
+popular collections similar to what's
+already there like out there like crypto
+punks or bard Apes collection like that
+you can use this um um this mixing of Ls
+sp8 and the token type to
+three and um yeah this is useful
+especially when you want to create an
+nft with the metadata is going to be set
+in stone it's not going to change um and
+so like you create vft you set its
+metadata and the metadata is is setup
+and very
+relatively speaking example with a weird
+word again is uh it's basically painting
+or digital art you you basically create
+U when when a painting is created it's
+uh the the art pieces is there it's not
+going to change it's just painting and
+in oil painting and uh we have the same
+now nowadays with digital art so for
+instance this collection of digital art
+the uh the art pie is there it's not
+going to it's not going to change so um
+so yeah we can use the this combination
+to reproduce something uh
+similar okay so we going to do bit of uh
+uh coding in solid and we're going to
+see how we can create uh uh such a basic
+example and we will look we will do that
+by inheriting the LSP contract so I will
+go over the uh the repository if you
+have downloaded it and you have
+installed it you we'll see that there is
+a playground file that we can use to
+we're going to use to create our
+collection and you just need to install
+the package with Yar if you haven't done
+it yet and what we're going to do is we
+are going to create our contract or nft
+collection
+contract so let's call it digital art
+collection and in order to make it as an
+nft we are going to
+import the LSP create
+identifiable asset
+contract and we are going to import it
+from the loo SM contract
+package which is uh
+here so you have to specify
+contract you have to
+specify
+SP
+8 and we are going to
+take this
+one okay so we're going to take this one
+and we are going to add it into the
+inheritance and here we will uh write
+the logic
+code
+here okay so as you can see here if you
+try try to compile the contract uh and
+if you run npm run build which is the
+command for compiling you will get a a
+first error from the sotic compiler
+saying that we have no argument that
+have been passed to the
+Constructor um and the reason is that
+ls8 expect uh to take uh arguments on
+deployment so we're going to see in a
+minute now these arguments so when you
+deploy an lp8 an nft contract on you you
+uh have to specify the following you
+have to specify the name of the token so
+in this sense the in this in the context
+of this tutorial the name of a
+collection the symbol um who owns the
+nft uh contract who control this
+contract uh so this address is basically
+going to be the one that can uh set all
+the metadata on the contract and in the
+future if his Contra is to be own by uh
+someone else uh for instance uh you the
+whole uh whole man let's say in the real
+world Contex context the whole
+management of the of the collection is
+uh is moved to like an organization or
+another person then this is the the
+address specified as the owner that will
+be able to do
+that and finally we will uh have to
+define the type of uh nfts and token IDs
+and we will see that in a second so it's
+technically two ways in Sol here to
+Define that we can either use predefined
+deployment values uh so we hard code
+that in the sity code or we can specify
+the values in the Gs and TS JavaScript
+or typescript so the first method is
+useful when you know already what's
+going to be the name of a collection um
+so you don't have to write the code in
+JavaScript and deploy like that you just
+can hardcode everything into the
+contract uh uh and it it's just going to
+be easier it's going to be a bit cheaper
+to deploy because the things are not the
+arguments not do not need to be passed
+and extracted from loal data uh and the
+second method is good when you are
+creating something more like a a
+template temp a contract template that
+can be reused to uh recreate nfts um uh
+collection okay
+so the to give an example in form of
+code the method one is like that you
+just specify an argument as literal
+values inside the inheritance uh all the
+second method is you define a
+Constructor and you will write the uh
+the arguments uh as parameter and then
+you will specify the arguments in your
+JavaScript code like this so this is an
+example with eers and type chain for the
+deploying uh the nft
+collection so I'm going to just carry on
+on uh the code here so in my case what
+I'm going to do is that I going to do
+method one I'm just going to um create
+the uh I'm just going to write it down
+because I kind of have an idea of what
+kind of digital art collection I'm going
+to create I'm going to create um a
+collection of uh
+3D um let's call it 3D artistic
+Cube I'm just going to create basically
+let's imagine we are creating different
+cubes uh as digital art painting with
+different shapes and colors and this
+would be our nft collection so this is
+the uh collection
+name the symbol we are going to say
+3D
+cube so this is what will appear in the
+block
+Explorer uh under the name under the
+address the owner is going to be the I'm
+going to specify the address that will
+deploy the
+contract and then um and then we'll have
+to specify as well the the token ID
+type so for the owner you can uh
+basically if you look at the contract
+here if you
+if you look at the
+contract we can basically go
+into let's look at factual contract
+code so for owner here is basically the
+address that you create the contract and
+the fourth will be the token ID type
+we're going to specify that in a minute
+if you want what you can do is that you
+can also if you know an address that
+will deploy
+the the the if you know the address that
+will own if that you will own the N
+collection so for instance you want to
+use one address to deploy the contract
+and one another address to specify as
+who will have control over it um you can
+just specify uh like this as a constant
+uh both you can just say LS sp8
+collection owner and here as an
+example and I will just
+say if
+this and you can just specify
+the um you can just basically specify
+the address here yeah it's just going to
+ask
+me to check some the
+address so you could have like the
+put the address here to
+specify so you just can basically do
+that this will be the contract on this
+okay now we need to look at uh this
+parameter the token ID type so what is
+it so basically when you specify when
+you create an LP collection um you have
+a parameter that you need to specify
+which is the lsba token ID
+type and the lsba token ID type is
+basically what you're going to use to
+define how the ID
+identifier um of each nft will be
+represented so with lp4 token type you
+specify how the how you have to
+interpret the assets inside the the
+contract we have lspa token ID type this
+is really for nfts this is for
+specifying how you what you are what
+which method you're going to use to uh
+create the identifiers for each nfts
+and so in the LSP standard we have five
+way five ways to Define to to to do that
+we can uh basic we I'm going to go
+through the main uh 3 one here and uh
+and then we will have another future
+example for the the last
+one so let's give first example we can
+first use the token ID type zero which
+is basically your unique number and you
+can use that for things like you start
+at token id1 and you increment as you
+meant new nfts and a popular example
+that exist outfir is basically the
+crypto Punk collection the token IDs
+started at one and then they got
+incremented uh so and there is a there
+has been 10,000 crypto Punk that got me
+that got created and each crypto Punk
+has the identifier 1 2 345 and that
+increments as it
+goes a second example example for token
+type string is we can use the example
+that we had uh and this is useful for
+when you actually want to say the
+identifier of the token ID is going to
+be a whole name String um and to use a
+example of digital art this is useful
+this token ID type is useful for this
+purpose because if you create a let's
+say a digital art and you call one
+painting um here exmo file
+9853 um this is easier to identify the
+the token ID like that and yeah and or
+if you um let's say
+um let's say you like if you create the
+the digital jond you will you will
+basically let's say you recreate the
+digital version of popular uh painting
+you can say uh you can name the token ID
+the digital Jon like the famous painting
+of DaVinci it's easier to identify the
+digital piece of art by its name rather
+by an identifier that doesn't properly
+match so depending on the use case the
+token ID type is easier is easier for uh
+identify
+NFD and so here in this case each
+digital piece of art is uh represented
+by its name
+another use of the token type for
+instance is the number two um which can
+be used for like things like a really
+unique and specific uh ID uh and let's
+say for instance you have a physical
+good in the real world that you want to
+map on the blockchain with something
+like an NFC chip or a QR code um search
+Goode can have a serial number for
+instance you can have a collection of
+Rolex watches and they have all their
+unique serial number and if you want to
+map that onto the smart contract
+collection for the Rolex collection uh
+you can use this token ID type where
+token ID is the serial number of the
+item and we can import all these token
+in solidity as follow uh they have they
+are defined in the LSP smart
+contract and you and in our case we are
+going to to use the tokened type number
+so let's carry on into our playground we
+just going to um so I had put a zero
+just for uh Sting the compiler warning
+um so we just going
+to
+specify we're just going to import that
+so we're going to saycore
+lp8 token ID
+type number I'm going to use the more
+simple
+one and I'm going to
+do LSP smart
+contract
+contract in
+here I'm going to go here
+again and I'm going to specify LP
+constant. so and I will pass this
+argument
+here or in the case of a painting we
+could say string because it's more
+appropriate with what we were using
+before okay so now that we have uh we
+have um created our first basis for nft
+contract uh there is we have a still one
+problem is that uh we have no public
+method for
+minting uh new
+nfts so we need uh and the reason is
+that the lspa contract by itself doesn't
+have this because uh because
+every uh every contract Creator will
+Define its own way to Mint and create
+new nfts so we have two method it's
+either we create our own function uh to
+create our own nft Supply or we
+basically
+um how we um uh use our
+preset so the first method will be to
+create your own function in this case uh
+we will call it uh let's say create new
+Cube
+and and so we call it let's say create
+new Cube uh create new Cube and we say
+Cube name address
+recipient and we will have our public
+method we make it only the owner so that
+only the contract owner can create a
+cube and then we need to
+define the token
+ID and we basically have to
+pass so we need
+to pass the name of the cube as B so the
+token ID are B 32 so we need to pass the
+token ID as B B and then we need
+to pass the the byes as a B
+for so we have our token ID and then we
+can pull the internal mean function and
+as you can see it's going to take the
+recipient of the ID of the token ID the
+forse parameter and the the data so the
+recipient we have it
+in
+in the in the function parameter then
+we're going to specify true and then the
+data and then the data sorry we going
+just specify no data this is basically
+any extra data that we want to send uh
+when we notify the recipient that we
+have created a new n that here hased a
+new uh nftd
+and yeah so here I will not put anything
+and the true the force here the true
+parameter is basically uh parameter
+called Force this is for enforcing this
+is for U basically ensuring if forcing
+if we are transferring an nft to an
+address uh that cannot handle the nft or
+not so in in the Lu
+ecosystem
+basically the recipient have to be smart
+contract uh of tokens have to be smart
+contract that implement the lsp1
+standard the lsp1 universal receiver
+standard and this is to ensure that they
+can handle and register uh and and
+register these uh
+tokens so if you specify by default it's
+uh if you specify false if you are
+sending the minting or transferring the
+nft to an externally own account or a
+smart contract that doesn't implement
+lsp1 this will fail in this case we're
+just going to put two um to uh just uh
+mean for anyone uh a universal profile
+uh contract and implement lp1 or uh any
+smart contract or any EA so one syntax
+that I like to write in general it's
+it's basically um it's basically writing
+the name parameter so that it's very
+it's very clear what uh everything uh
+mean mean and you can do that in
+solidity uh um as follow you can
+just you can just
+basically
+take each of this
+parameter yeah and you B yeah this is
+BAS basically the name parameter way to
+uh to call an a function so this is
+clear what each parameter uh means
+here but in our case we're not going to
+even we are not going to uh we are not
+really going to uh do that we just going
+to um we can just create just going to
+create a public function called we in
+okay yeah we so this is the first me
+method and the second method is you can
+use a preset contract that we have which
+is called LSB
+minable and you can narrate it
+here and when you have uh so I would
+just comment out this method and when
+you use this pH inable what happen and
+is
+basic is basically the following you
+have a public uh method added into the
+API that you can call to uh to create
+your uh NF collection so if you if we
+look here if we look for mint we'll see
+we have a public Min function here in
+the AI uh that take all these parameters
+um I take all of these parameters it
+takes the token
+ID Yeah so basically we created here two
+ways
+to create
+nfts so now that we have created the nft
+we can what we can do is that we can
+specify uh the metadata R for each nft
+and the most simple way um is to um
+basically have all the metadata of each
+nft the links and that result in the
+contract and you can do this by setting
+the base
+URI uh
+the Bas Ur and this data key and then to
+get the metadata each nft you then
+append you take extract this Bas and you
+append the token
+ID and uh what this parameter takes is
+basically the it's the hash function uh
+it's for
+verifiability and this is the base um
+and this is the constant uh for
+varability and this is the base U uh
+that you will
+use an example of how we can use it for
+this is for both apes basically both
+apes for metadata they all have the same
+base U and the metadata never change so
+you just they just all have base URI and
+there is the token ID appended at the
+end yeah so if we look carefully here
+basically we uh this is the example in
+JavaScript where we do that and yeah as
+I say the under the LSP token metad
+database U we have a tole that we had
+defined here and the first value is the
+first for bite of a hash of a word K 256
+parenthesis with utf8 in
+parenthesis is the has of uh that and
+this is used for uh verifiability
+between ensure that when we create the
+Json the URL to the metadata it's
+verifiable and um and then we have the
+base URI appended at the
+end okay the fourth example is for
+dynamic nfts nfts that can change their
+traits and attributes over
+time um so in this case the combination
+that we will use is s sp8 uh plus the
+number three for the token type meaning
+we are going to create a
+collection and so when we do that each
+token ID here is uh an nft F can be its
+own smart contract uh and for example
+contract an ERC 75y smart contract and
+it can have an infinite amount of
+entries as data keys to specify specific
+attributes this is very useful if you
+want to uh create an energ collection
+where um the attribute of nfg can change
+so you can create basically
+digital items or entities as nft that
+can evolve um and this is useful for
+things like uh nft that you want to make
+customizable um so
+the the basically the user owns an nft
+that is specific to him but it can also
+even customize it or things like some
+use case are like characters in a video
+game but that can evolve as the
+character by equipment or weapons um so
+for instance um an example from this is
+an example from famous video game
+Assassin's Creed where the character can
+uh upgrade and downgrade and change his
+equipment like his helmet his weapon his
+uniform and you can technically store
+all of these under the e75 wi storage of
+a contract of that represent the
+nftd so to do that what we do is that we
+uh still we we inherit LSP 8 and we uh
+and we use the token ID type address and
+we will set the token type data key to
+uh
+collection and the so this is the whole
+collection that contain all the the each
+nft identifier and this is the contract
+that will be for uh the actual uh nft
+itself with the metadata that it
+contains and this contract basically uh
+here specify the owner of nft and the
+collection that it belongs to and this
+collection can be specified under the
+LSP reference contract data key so this
+way you can uh Point backwards to uh
+when you quer this nft as a smart
+contract you can know from which
+collection it it it it comes from you
+can go from both ways you can basically
+um um check uh under this
+contract who owns Which nft and the
+token ID will be at the address of this
+contract and in this contract the value
+stored under the lsph reference contract
+will be the address uh that uh this
+contract belongs
+to okay and the final example which is
+the most complex of all of them is that
+you can use LS sp8 and lp7 uh in
+multiple combination to create a
+collection of
+subcollections so this is a very
+Advanced use case so this the standard
+will be still LS sp8 and the token type
+uh will be still free as a collection
+and in this case the LSP contract is
+actually a whole collection uh it's
+really uh it can it it it's it's it list
+all the uh all the sub collection that
+it contains and each token ID is
+actually another smart contract that
+it's an lp7 contract that is still non
+divisible and this represent uh one part
+of a sub
+collection and um very
+um um a very uh a good example which is
+quite uh common to anyone in the crystal
+space is to create the famous sticker
+that we all collect when we go to uh
+crypto events but in a digital form so
+if you go to a crypto event you will see
+that that any Booth everyone uh has a
+whole set of stickers and there is
+different design for each stickers but
+there is multiple of them and at luo the
+sticker where they very popular are the
+loo Goods sticker the loo super good and
+the one the in whole silver so basically
+each what happens here is that
+this is the whole lp8 contract and LSP
+and each Contra each of the stickers is
+actually an LSP 7 contract with a
+certain number of digital sticker that
+exist so this is will be one lp7
+contract this will be another one and
+this will be another one and there will
+be a limited number of each sticker so
+I've represented with a different
+example here where you have the nft
+contract lp8 that contained all the list
+of stickers digital stickers created so
+this is these all these digital stickers
+are basically nfts so this is the whole
+collection and the token ID type is
+addressed because each sticker is a
+smart contract it's an LSP 7 so the
+token ID uh 416 a4f it's basically the
+address of np7 contract that has the
+silver dog uh sticker and and you have
+that for each uh each basically sticker
+and in this way you can create things
+like a collection of subcollections
+where each subcollection has a limited
+number of item available um so for
+instance in this case the the the
+stickered silver shiny dog
+has there is a lot of quantity available
+and the the the the second one here is a
+bit less common while the last one the
+six ice cat it's very rare there's only
+5,000 digital stickers ever created and
+still each of these uh tokens are
+non-divisible so you can use this uh
+approach also to create a collection
+with a sub collection inside them that
+have with where each item have is more
+scar than
+others and yeah this is basically how
+you can uh compose the different LSP
+standards to create different type of
+nftd collection as you want and the
+example here will be that uh and the
+form of code snippet uh that will be the
+following you have um it's more it's
+better
+viewed in the in vs code where you
+have
+here you have the whole LF nft
+collection so this is the LSP
+contract when you deploy it you have you
+specify the lp4 token type and you can
+technically uh visit this is a sort
+example where you create a new sticker
+you you uh specify the name and the
+sybol of a stinker of a of a digital
+sticker and you say how many sticker you
+are going to create so reusing for
+example if you are going to create
+100,000 or 20,000 or
+5,000 um and you define a price for
+people who want to buy the the the
+sticker and you just create a new
+contract and once the contract has been
+created you uh get back his uh uh
+address here and you um you basically uh
+then uh create the sticker ID the token
+ID and under the uh under this contract
+you are just going to um basically set
+the token ID and then you will uh you
+will min the the token ID for the
+stickers so this sticker will then
+belong to this other collector ction and
+when you are uh basically
+here creating the sticker you are what's
+happening is that you are just
+specifying the the type of uh
+sticker um and yeah and and here uh it's
+actually not collection it's
+ft and here in this case you just
+minting the total amount um that uh that
+exist and yeah that's about it that's
+how you can use the different LSPs in
+combination to uh create uh different
+type of nft collection I hope you enjoy
+the video and thank you

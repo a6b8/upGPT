@@ -1,0 +1,230 @@
+hi there it's Bianca from the Deval team
+in this video we're going to create a
+universal profile programmatically and
+after we have our Universal profile
+we're going to read Universal profile
+data first the contents of uh this video
+so in the first part we're going to
+create an account programmatically in
+part number two we're going to deploy a
+universal profile programmatically and
+in part number three after we have our
+Universal profile we're going to read
+the data from our
+profile here you can have by scanning
+this code uh you can access the GitHub
+repository and I strongly encourage you
+to actually follow uh with the GitHub
+repository in front because you will
+find very useful comments in the code
+and also you will find the different
+libraries and dependencies in the rme
+file one note here uh when you are
+deployed loing a universal profile uh
+you have two options so the first option
+is you deploy the universal profile
+using the universal profile browser
+extension and when you're doing this way
+your transaction gas fees will be
+subsidized by the Lux of relay service
+the second version that we're going to
+cover today is when you deploy your
+Universal profile
+programmatically in this case you'll
+have to cover the gas fees uh for your
+transaction by yourself however there
+are still cases when you will need to
+create a universal profile
+programmatically so this is uh very
+useful to
+know now brief recap on what is a
+universal profile a universal profile is
+a smart contract based account that
+represents your profile on chain so to
+this profile you can attach different
+metadata such as links descriptions
+profile pictures cover photos uh tags
+Etc Now demo time show me the code I
+would like to invite you to access uh
+this link and follow along with the
+video to create our Universal profile
+first we'll need an account to do that
+we're going to use the web FS Library so
+first we're going to import it now we're
+going to create uh an instance we're
+going to pass uh in here here
+the LX RPC endpoint for the test net
+next we're going to create our account
+uh we're going to use the create
+method and we are going to display to
+the console the private key and the
+public key next we want to display our
+balance we're going to do so by creating
+an Asing function we can call it uh get
+balance of course uh at the beginning
+our balance will be zero but we are
+going to fund our key using the Luxo
+testet faucet because we're going to
+need uh some testet leaks to deploy our
+Universal profile last but not least uh
+we are going
+to call our get balance function and
+let's see this in
+action
+as you can see here it has generated our
+private key our public key and we have
+our balance of zero so now it's time
+that we go ahead and we fund our uh
+public I'm right now on the Luxo docs
+I'm going to go to networks I'm going to
+go to test net Network parameters I'm
+looking for faucet and and here you can
+find the testet authenticated
+faucet in order to get funds uh you need
+to make a tweet and paste the URL from
+the Tweet you have the whole explanation
+uh here in the bottom then you can press
+uh give me l t testet loo that's it next
+we are going to deploy our Universal
+profile okay so now in a separate file
+I'll call this uh deploy up
+I'm going to work on creating and
+deploying uh my Universal profile
+similar to before I'm going to import a
+web free library and create a web free
+object where I'm passing the locko
+testnet RPC endpoint however if you
+prefer using eers instead of uh web free
+you will find under the eers folder
+corresponding to uh the GitHub reple for
+these tutorials all the files using
+eers after this I'm going to use uh LSP
+uh Factory I'm going to import uh LSP uh
+Factory LSP Factory it's a library that
+does the heavy lifting for deploying
+Universal profiles and other digital
+assets such as LSP 7 or LSP
+8 and then I'm going to uh
+import my uh I'm going to import uhv and
+I'm doing this because I I want to save
+my private key uh Secret in
+TMV so what I'm going to do
+now I am uh going to uh load my private
+key from the EMV file and store in a
+private in a constant called private
+key when it comes to the UA I'm going to
+define the variable my UA and and here
+I'm going to use the private key to
+account uh function this function create
+an account object uh from a private key
+so this is exactly uh What uh we are
+looking
+for next is time to to use our LSP uh
+Factory Library so we're going to create
+a new instance of LSP factory and we're
+going to pass the testet RPC uh endpoint
+uh and uh the EA's uh private key uh
+this will deploy basically the universal
+profile smart contract so we have the
+RPC endpoint and we have the deploy key
+which is uh the private key and the
+chain ID uh we have uh 4201 for The Lox
+test
+net in The Next Step uh I'm going to
+Define an async function called create
+uh Universal uh profile let's say uh
+this uh will allow uh need to return the
+deployed contracts so I'm going to use
+deploy function from the LSP Factory and
+I'm going to pass uh two uh parameters
+the first parameter is the controller
+key this is essentially the EA that will
+be uh controlling the universal
+profile and the second
+parameter is the LSP free profile so the
+LSP uh free profile it contains the
+profile
+metadata and basically it allows to
+define specific data key uh to Define uh
+properties for the universal profile so
+you can see here that I have a name I
+have a description I have tags I have
+links but you can add
+other uh data keys for example they can
+be one for a profile
+image now that uh we have discovered uh
+what I'm going to do is I want to store
+the address of the universal profile in
+a variable called uh my up address and
+then I will uh output this to the
+console so now all I have to do uh is to
+return um the deployed
+contracts and then of course uh to call
+uh
+the create Universal profile
+function and this should be it now all I
+have to do is uh to run our
+file it will take a while for the smart
+contracts uh to be uh
+deployed but um this should work
+and here we have the address of my uh
+Universal
+profile okay so now for the last part we
+want to read profile data from our
+freshly created Universal profile to do
+that I created a new file uh you can
+find it under the name of read profile
+data.js similarly to
+before we're going to import a web free
+in order to connect to an RPC endpoint
+we're also going to import this time RC
+uh 725 this allows us to easily uh
+interact with u ERC 725
+schemas and also we're going to
+import our LSP free profile
+schema now in order to uh read our
+profile data we're going to use uh the
+fetch profile
+function
+so as you can see here we are attempting
+to create a new ERC 725 uh object and to
+do that uh we need to pass in four uh
+parameters youc LSP free profile schema
+the address which is the universal
+profile
+address the
+provider and we need also a config which
+is the the ipfs uh
+Gateway so so uh we attempt to create a
+new ERC 725 object and we attempt to
+fetch data from this object once we
+created the object and if we get an
+error most likely means that this is not
+ANC 725 uh contract we're going to
+display this uh error
+message so now all we need to do uh is
+to basically Define uh this uh such that
+uh we have them as parameters
+so first we're going
+to have our sample profile data this is
+the universal profile address that we
+have from earlier the RPC endpoint uh we
+are going to pass the loxo RPC endpoint
+and the ipfs
+Gateway that we're going to uh use and
+then we also need
+to Define uh the
+parameters for the ERC 725 instance and
+these are the provider and the
+config
+finally we want to call the fetch uh
+data uh fetch profile uh
+function so uh by doing that we want to
+display uh to the console uh the profile
+data as a as a Json so so now we're
+going to do that we're going to save our
+file and
+run uh profile read profile
+data and here we have our schema that we
+just defined
+earlier beautiful

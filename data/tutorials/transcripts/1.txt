@@ -1,0 +1,532 @@
+hello everyone it's y from the tech team
+in this video we're going to learn how
+to extend the functionalities of a
+universal profile using LSP 17 contract
+extension standard so before going into
+the LSP 17 let's start with the
+universal
+profile a universal profile is an lsp0
+ERC 725 account and when we go to the
+spec we see that it's a nonbi smart
+contract account which mean it have
+basic functionalities like executing
+setting data Val dating signature
+ownership management being notified
+about different actions and reacting on
+it and a unified way to interact with
+the
+contract so here we can see most of the
+essential functionality of a universal
+profile and once it's deployed we will
+just have these native function so
+imagine someone wants to add a specific
+function to the universal profile after
+it has been deployed should he create a
+new Universal profile with this
+functionality obviously not because your
+Universal profile will hold your
+reputation which you cannot migrate to a
+new one because whenever you deploy a
+new account the address will change and
+you'll need to migrate your data and
+your tokens which is not an easy thing
+to do whenever you want to add a new
+functionality to the universal profile
+so what's the
+solution the solution is LSP 17 contract
+extension which is a standard that the
+universal profile adopt that will allow
+for the contract to receive function
+calls of function that does not exist
+natively in the contract and forward it
+to an extension where it actually exists
+passing the relevant information in this
+way even after deployment smart
+contracts will have the ability to
+support new
+functionalities so here for the
+universal profile we can see that we can
+add extension and why is this useful and
+needed is because for example this
+profile will be deployed at a certain
+stage in time but even after deployment
+the process of standardization in the
+ecosystem will continue so other
+standard will get adopted in the future
+and the profile might need to support
+them similar to what's happening now
+with EIP 4337 where in order to be
+compatible with the standard you'll need
+to have a function called validate user
+op which you can see on the screen that
+we can add as an extension and also some
+token require a specific function that
+return abides for Value in order to make
+a safe transfer successful like erc721
+and
+1155 which anyone can decide to support
+by adding the relevant extension so LSP
+17 not just ensure the ability to extend
+the profile with new function and
+interface IDs but also emphasize on the
+point that a universal profile is a
+non-biased account where only essential
+feature are within the account and
+everything else can be added as an
+extension so we're going to see a demo
+on how to add the extension to the
+universal profile and what you can do
+with
+them so I created a hard hat project and
+you could easily do that by doing npmi
+hard hat and then you'll install hard
+hat and after this you would need to
+initiate the project so you do npx
+hardhead in it um I created a hardhead
+project using typescript but feel free
+to do it with JavaScript if you're more
+comfortable with it so you'll get a hard
+hat project and then you would have some
+templates in contract scripts uh but
+this is the main template that we're
+going to use and then we're expand from
+this uh and at the end of the video you
+can go to the this GitHub repo where
+you'll find all of the final code so the
+package that I'm using are prettier hard
+hat. EnV so you just install EnV uh to
+put the environment variables uh also
+we're using the LSP smart contract
+package so you would also need to
+download it in this way because we need
+to extract some constant and uh we're
+going to use some contracts uh so You'
+put that into the EnV so I created a
+sample file for the EnV so we'll need
+the private key of the browser extension
+controller there will be other tutorials
+that show how to extract that from the
+browser extension and we would need the
+universal profile address and obviously
+you would put that into the EnV I will
+not show you this because it contain my
+private key so we have this main setup
+I'm going to explain it so we import
+ethers we load the environment variables
+we import this Universal profile ABI
+from the LSP smart contract package and
+then we connect our code to the loxo
+testnet we initiate the signer which is
+the browser extension controller and we
+create an instance of the universal
+profile using the address that we
+imported from the environment
+variable and the universal profile AI so
+we can interact with a function of the
+universal profile and the provider which
+is where the universal profile actually
+exists which is on the test n
+uh so I'm going to run this script so
+you can see
+the so you can see my I can see the
+address of my browser extension
+controller and the universal profile and
+then we're going to start so we're going
+to start by calling a function that does
+not exist on the universal profile and
+I'm going to take this main
+setup and I'm going to put it here and
+because we're going to call a function
+that does not exist we going to create a
+new API so let's say the function that
+does not exist is called buy me a
+Coffey so this is the function and now
+we're going
+to update the universal profile with the
+new AI which is this one and we're going
+to try to call it and we're going to see
+what's going to happen so we connect to
+the signer so the browser extension
+controller will be executing this
+transaction and then we're going to try
+to call the
+function and let's see what
+happened so it's going to revert so
+execution reverted unknown custom error
+and if we take
+the the signature and we put it into the
+bytes for dictionary
+so we just do this and then we extract
+all of this thing take the first four
+bites we're going to see that this
+custom error is for no extension F found
+for function selector so this means that
+this function which is buy me a coffee
+does not exist natively on the up and
+also there is no extension for it so
+what we're going to do is that we're
+going to go create a new contract we
+call this contract coffee maker and
+we're going to put this function here
+and then at the end we're going to add
+this contract as an extension for the
+universal profile so here we inherited
+the LSP 17 extension contract because it
+provides some utility functions that
+we're going to see so we have extendable
+message data extendable message. sender
+and extendable message Dov
+value so I create uh I explained this
+before but what's happening is that a
+person uh or an address is calling the
+universal profile with this function and
+then the universal profile is calling
+the contract that will be added as an
+extension so that mean the message.
+sender of the universal profile is the
+actual person calling but the message.
+sender of the extension will be the
+universal profile so if we're going to
+do some validation based on like who who
+called the extension we cannot do
+message. sender because in this case it
+will be the universal profile address so
+because we're uh appending data to the
+extensions we can access that with the
+extendable message sender so that mean
+this is the person who actually called
+the universal profile with the function
+selector and we can also get access to
+the extendable message.
+value so we can see it here extendable
+message. Val which is how much this
+person have sent while calling this
+function
+and the universal profile will obviously
+communicate this information to the
+extension and if you go to the
+specification of the LSP Z you will see
+how you can um do some configuration in
+order to make the value forwarded to the
+actual extension but in our case we'll
+just uh see how it's communicated so
+we're going to proceed with adding the
+function that we agreed on its name
+which is buy me a
+coffee so we're going to create a public
+function and we're not going to do
+anything uh complex we're just going to
+create a public variable called coffee
+revenue and this coffee
+Revenue will be increased each
+time send us value so we're going to say
+that the coffein coffee Revenue
+will increase each time someone send
+value to the universal profile so in
+case it's uh deployed on the uh Luxo
+Network it will be licks how much licks
+you're sending so we're going to deploy
+this it's super simple so obviously if
+we run the script again it will still
+fail because we just coded the solidity
+part and we didn't deploy it or add it
+as an extension yet so what we're going
+to do is that we're going to do npx
+hardat compile
+and
+then we're going to add the function
+that does not exist so we're going to
+take the main
+setup put it here and now we would need
+several stuff so first we need to
+deploy the coffee
+maker so we're going to take the factory
+from the type chain and then
+we're going to say that this is the
+coffee
+maker we're going to attach the signer
+just going to deploy
+it and here we can just
+log the
+address of the copy
+extension Target so there's the
+difference between
+uh ether's V6 and V5 so if you're using
+V5 it will be here do address instead of
+do Target but I'm using the latest
+version so we can deploy it but at the
+same time let's add um let's add it as
+an extension so what we're going to do
+is that if we go here we can probably
+take the function
+signature of the function which is this
+one buy me a coffee
+but we're not going to take it from here
+what we're going to do is through the
+code we're going to say
+that by
+me coffee selector is equal to ethers
+then we're going to use the ID method
+we're going to say we're going to copy
+the function
+name so we get that
+correctly and then this will result in a
+32 by hash so we're just going to
+take the first 10 characters which mean
+it's ox and then four bytes which is the
+function
+selector um after this we're going to
+construct the data key of adding uh the
+extension so we're going to
+use the ERC 725 data key which are
+provided by the package so you can
+import that from the package and here
+you can use some utility libraries like
+R c725 JS to construct the data and
+fetch them from the contract but I will
+try to do it without them to to also
+emphasize that if it's a simple thing
+you can do it without the uh library but
+if you're if you have many fetching and
+constructing it is recommended to use
+ERC 725 GS or the utilities of the LSP
+smart contract so I'm going to construct
+the data key um by
+saying constructed data key equal so
+first we take the ERC 75y data key which
+is the LSP 17 and we take the prefix so
+the prefix will be 12 bytes which which
+are defined in the standard and now we
+need to take this uh 4 byte selector and
+Pad it so we're going to use ethers
+do0 pad bytes this one and then we're
+going to take the selector
+and we're going to pad this by 20 bytes
+because it's 12 and we want to make it
+as 32 by data key and then at the end
+we're just going to remove the ZX from
+the
+front so this is the constructed data
+key and now what we're going to do is
+that we're going to set this data key
+with the address of the extension so
+what we're saying is that whenever the
+universal profile is called with this
+function selector call the extension
+which we deployed here so this is what
+we're going to do we're going to set
+data on the universal profile using the
+signer and here it's important to note
+that um the signer which is the browser
+extension should have all the permission
+needed here the permission needed are
+ADD extension which if you want to
+modify you'll need edit extension but
+make sure that uh your Universal profile
+browser extension controller have the
+ADD extension uh permission there's
+other tutorials that show how to detect
+this and how to add it in case you don't
+have it so we're going to call set data
+and then this is the construct data key
+and the data value would be the coffee
+maker address which we can access by
+doing
+this and then we would need to wait
+uh is mind so now we're adding function
+that does not exist let's see if we made
+some mistake hopefully we didn't okay we
+can take so we can see that it's
+deployed and we can take the address so
+we can use it later and we can put it
+here so this is the address of the
+coffee maker extension so everything
+went through and now if we try to call
+the function that does not exist second
+time hopefully it will go
+through npx hard but we need to make
+sure of the requirement of the function
+if you had some requirements here you
+need to make sure these are fulfilled so
+here we can modify it to say require
+that um the extendable message do value
+is more than five in this way you're
+requiring that anyone who wants to buy
+you a coffee that he send you more than
+five way or like you can put it whatever
+value you want so we're going to call
+the function
+again so we're going to try to call the
+function after adding it as an
+extension and we're going to see that
+this time it didn't trovert
+actually so this time we're calling it
+and what we're doing is that we're
+saying the extendable message do value
+is incremented with how much value we
+send so here we didn't send we didn't
+send any value so I'm going to try to
+say I'm going to
+send um so let's let's see the default
+okay let's take the main setup and check
+the
+extension so this is the address of the
+extension so here we're
+saying the ABI we don't need to use the
+universal profile Abi I'm going to say
+the ABI
+is
+function coffee
+Revenue then it returns a un to 56 let's
+make sure it's correct
+yep and then we're going to instantiate
+the
+extension with this
+address
+and with this
+Ai and with this provider so we don't
+need to use these ones and now what
+we're going to do is that we're just
+going to call the extension with
+the this signer and which function we're
+going to call is the
+coffee Revenue do static call so here
+we're going to do a static
+call
+and so we're going to put the result and
+then we're going to
+log the result hopefully it will go
+through so now what we're doing is that
+we're checking the extension if there's
+some
+changes it's checking the
+extension so here it showed zero because
+actually when we called the extension
+here we didn't forward any value and
+let's see now if we forward some value
+if it will work or not so I'm going to
+send seven way here we didn't put any
+restrictions so we can send as much as
+we want so I'm going to
+send 7 way and I'm going to do calling a
+function that does not
+exist and we can see it takes some time
+so it can get mined on the
+blockchain okay let's check now if the
+revenue went
+up let's do check extension hopefully we
+can see yeah you can see that it went
+from zero to 7 which is actually the
+number that we sent so this can show you
+that you can even control in the
+extension the value that can be sent to
+your Universal profile while calling a
+function that does not exist so this
+give you a big amount of flexibility so
+the last thing we're going to do uh is
+that we're going to try to also extend
+the universal profile with other
+interface ID so the whole point of
+extending with function is to add new
+functionalities to the universal profile
+but what usually websites do is that
+they check an interface ID for the
+universal profile profile if it's
+supported so they can start preparing to
+call a function so if you go to the
+universal profile now you can see that
+it support ERC 75x and ERC 725 Y and
+what websites do is before doing any
+transaction they check if if it support
+this interface ID and if it doesn't
+support it it just don't do the call so
+now we're going to create a new contract
+and let's call this contract
+supports
+interface and
+then just name this we don't need
+actually now the extension just for
+Simplicity I would do
+function support
+interface it will take a byes
+for
+then public and it will return aoan
+whether this interface ID is supported
+or
+not so for the Simplicity we're just
+going to hardcode it and say if it's
+support ABC ab a a b b c c d and we're
+going to
+compile it went through now what we're
+going to do take the main set up and put
+it in calling supports interface what
+we're going to do is just simply call
+the up because the supports interface
+function exist on the up but we just
+want to extend it so we do up connect to
+the signer and recall
+supports
+interface with Ox aab BB CC
+DD and let's see the result obviously
+now we didn't add the extension yet so
+it's okay if it
+returns false let's
+see so actually it returned false
+because this interface ID is not
+supported by the universal profile and
+what we're going to do now is adding
+this um we're going to add this
+extension so here we can modify this
+code to just instead
+of adding the extension of buy me a
+coffee we're going to do supports
+interface byes
+4 here instead of the coffee maker we're
+going to take the supports interface
+factorys interface
+extension and we can log log
+it
+supports
+interface and then we just replace it
+here and so what we're
+doing we're first deploying the uh
+extension that extend the uh supports
+interface function this extension will
+support obviously it's here the this
+interface
+ID and then we're Computing the selector
+of supports interface and we're
+constructing it with the with the LSP 17
+extension prefix and then we're setting
+it on the universal profile so let's run
+the script of adding the
+extension so it's going to take a little
+bit of time so we can see this is the
+address not the coffee extension ah I
+left it
+so we can do support
+words actually it's okay no one is
+seeing now so we can take this and wait
+till get mined so this is actually this
+is a typo it's not the address of the
+coffee extension it's the address of the
+supports interface we're going to take
+it
+and we're
+gonna actually we don't need it because
+we're going to directly call uh we're
+going to directly check the interface ID
+on the universal profile so before we
+checked the interface ID this one and it
+returned false but now if we do it
+again calling supports interface it will
+be true so that means not just you can
+extend the functionality of a universal
+profile with new functions but you can
+also make the universal profile support
+new interface IDs and this is good for
+detection of what feature they Universal
+profile will eventually have so this was
+the demo as I said if you want to look
+at the code this will be all published
+to this GitHub repository thank you

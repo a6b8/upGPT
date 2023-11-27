@@ -21,7 +21,7 @@ The API and document generation modules have been published in separate reposito
 
 ## Documents
 
-"The following learning resources were selected to generate documents from:
+The following learning resources were selected to generate documents from:
 
 ### Lukso Documentation
 All pages were used and added to a single document.
@@ -64,9 +64,9 @@ A selection of tutorials was added to provide a wide range of applications."
 
 The selection was made based on activity period and repository size. It is intended to provide a rough guideline for further optimization. The complete list can be found in `./src/data/config.mjs`. Additionally, the generated tables can be found in the following individual links:
 
-- [Lukso Repositories](https://github.com/a6b8/upGPT/blob/main/0-lukso.md)
-- [Tutorials](https://github.com/a6b8/upGPT/blob/main/1-tutorials.md)
-- [Repositories](https://github.com/a6b8/upGPT/blob/main/2-repos.md)
+- [Lukso Repositories](https://github.com/a6b8/upGPT/blob/main/0-lukso-all.md)
+- [Tutorials](https://github.com/a6b8/upGPT/blob/main/1-tutorials-all.md)
+- [Repositories](https://github.com/a6b8/upGPT/blob/main/2-repos-all.md)
 
 
 ## License

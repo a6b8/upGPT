@@ -1,7 +1,9 @@
 const config = {
+    'meta': {
+        'sitemapChunkSize': 1 
+    },
     'sitemaps': {
-        'docs': 'https://docs.lukso.tech/sitemap.xml',
-        'main': 'https://lukso.network/'
+        'luksoDocs': 'https://docs.lukso.tech/sitemap.xml'
     },
     'repos': [
         {
@@ -131,8 +133,7 @@ const config = {
     'lukso': [
         {
             'name': 'rICO',
-            'repo': 'https://github.com/lukso-network/rICO-js',
-            'use': true
+            'repo': 'https://github.com/lukso-network/rICO-js/master'
         },
         {
             'name': 'Tools Up Hammer',
@@ -214,8 +215,13 @@ const config = {
         }
     ],
     'paths': {
+        'lukso': './data/luksoDocs/',
         'tutorials': './data/tutorials/',
-        'sitemaps': './data/sitemaps/'
+        'transcripts': './data/tutorials/transcripts/',
+        'merge': './data/tutorials/merge/',
+        'sitemaps': './data/sitemaps/',
+        'luksoRepos': './data/luksoRepos/',
+        'otherRepos': './data/otherRepos/'
     }
 }
 
